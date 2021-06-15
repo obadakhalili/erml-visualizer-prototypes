@@ -35,21 +35,17 @@ function WeakEntity(props: any) {
       <div style={{ alignSelf: "center", margin: "0 auto" }}>
         <b style={{ textAlign: "center" }}>{props.content}</b>
       </div>
-      {/* <div>
+      <div>
         {props.inputs.map((port: any, idx: any) =>
           React.cloneElement(port, {
             style: {
               position: "absolute",
-              width: 12.5,
-              height: 12.5,
-              top: 20 * (idx + 1),
+              top: 7.5 * (idx + 1),
               left: 5,
-              transform: "translateY(-50%)",
-              backgroundColor: "#000",
             },
           })
         )}
-      </div> */}
+      </div>
     </div>
   )
 }
@@ -147,6 +143,16 @@ function IdenRel(props: any) {
       }}
     >
       <b style={{ transform: "rotate(-45deg)" }}>{props.content}</b>
+      <div>
+        {props.inputs.map((port: any, idx: any) =>
+          React.cloneElement(port, {
+            style: {
+              position: "absolute",
+              top: 7.5 * (idx + 1),
+            },
+          })
+        )}
+      </div>
     </div>
   )
 }
@@ -193,7 +199,8 @@ const initialSchema = createSchema({
     {
       id: "Borrow",
       content: "Borrow",
-      coordinates: [625, 250],
+      coordinates: [625, 140],
+      inputs: [{ id: "port-3" }, { id: "port-4" }],
       render: IdenRel,
     },
   ],
@@ -203,12 +210,13 @@ const initialSchema = createSchema({
     { input: "User", output: "Age" },
     { input: "User", output: "Borrow" },
     { input: "Book", output: "Name" },
-    { input: "Book", output: "Borrow" },
+    { input: "port-1", output: "port-3" },
+    { input: "port-2", output: "port-4" },
   ],
 })
 
 export default function UncontrolledDiagram() {
-  const [locked, toggleLock] = useState(true)
+  const [locked, toggleLock] = useState(false)
   const [schema, diagramMethods] = useSchema(initialSchema)
 
   return (
